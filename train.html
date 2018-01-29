@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="trainstyle.css">
+</head>
+
+<body>
+    <div class="jumbotron">
+        <h1 class="display-4">All Aboard</h1>
+        <p class="lead">Train Schedule</p>
+        <hr class="my-4">
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Train Name</th>
+                <th>Destination</th>
+                <th>Frequency (Min)</th>
+                <th>Next Arrival</th>
+                <th>Minutes Away</th>
+            </tr>
+        </thead>
+        <tbody id="trainTable">
+        </tbody>
+    </table>
+    <div class="row"></div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="col-md-4"></div>
+    <form class="col-md-4">
+        <div class="form-group">
+        <label for="exampleFormControlInput1">Train Name</label>
+        <input type="text" class="form-control" id="trainName">
+        
+        <label for="exampleFormControlInput1">Destination</label>
+        <input type="text" class="form-control" id="destination">
+            
+         <label for="exampleFormControlInput1">First Train Time</label>
+        <input type="email" class="form-control" id="trainTime">
+               
+       <label for="exampleFormControlInput1">Frequency (min)</label>
+       <input type="email" class="form-control" id="frequency">
+       <button type="submit" id="addtrain" class="btn btn-primary mb-2">Add Train</button>
+</form>
+</div>
+</form>
+
+<script
+src="https://code.jquery.com/jquery-3.3.1.js"
+integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+                    <script src="trainlogic.js"></script>
+                    
+
+</body>
+
+</html>
