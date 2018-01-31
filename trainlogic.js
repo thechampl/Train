@@ -1,7 +1,6 @@
 
 
   // Initialize Firebase
-  // Initialize Firebase
   var config = {
     apiKey: "AIzaSyDhwKlUHQkNjNPqMaVc9A0Se5PvMv1JVS4",
     authDomain: "train-ab718.firebaseapp.com",
@@ -14,35 +13,41 @@
 
   var database = firebase.database();
 
+
+  // Global Variables
   var trainName;
   var destination;
   var trainTime;
   var frequency;
 
-   database.ref().on("value", function (snapshot){
-     trainName= snapshot.val().name;
-     destination= snapshot.val().location;
-     trainTime= snapshot.val().time;
-     frequency= snapshot.val().speed;
+  
+// Database listens for a change
+   database.ref().on("child_added", function (snapshot){   
+   var tableBody = $("#trainTable");
+   var snapshot = snapshot.val();
+   var row = $("<tr>");
+   var columns = $('<td>' + snapshot.name + '</td><td>' + snapshot.location + '</td><td>' + snapshot.time + '</td><td>' + snapshot.speed + '</td>')
+   $(row).append(columns);
+   $(tableBody).append(row);
+    trainName= snapshot.val().name;
+    destination= snapshot.val().location;
+    trainTime= snapshot.val().time;
+    frequency= snapshot.val().speed;
+    
 
-     $("#trainName").text(trainName);
-     $("#destination").text(destination);
-     $("#trainTime").text(trainTime);
-     $("frequency").text(frequency);
 
-     console.log(trainName);
-     console.log(destination);
-     console.log(trainTime);
-     console.log(frequency);
+
+      
+        
    
-
+// Error function
   }, function(errorObject) {
     console.log("The read failed: " + errorObject.code);
   });
 
 
 
-
+// On button click
 $("#addtrain").on("click", function (event){
   event.preventDefault();
   trainName= $("#trainName").val();
@@ -50,26 +55,18 @@ $("#addtrain").on("click", function (event){
   trainTime=$("#trainTime").val();
   frequency=$("#frequency").val();
 
-  // database.ref().set({
-  //   name: trainName,
-  //   location: destination,
-  //   time: trainTime,
-  //   speed: frequency
+// Pushes data from form to database
+  database.ref().push({
+    name: trainName,
+    location: destination,
+    time: trainTime,
+    speed: frequency
+  });
 
-  console.log(trainName);
-  console.log(destination);
-  console.log(trainTime);
-  console.log(frequency);
+ 
 });
 
 
-// });
-
-
- 
-
-
-  // }
 
 
 
