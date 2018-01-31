@@ -19,14 +19,21 @@
   var destination;
   var trainTime;
   var frequency;
-
-  
+  var nextTrain;
+  var now = moment();
+  var currentTime= now._d.toTimeString();
+  console.log(currentTime);
+  var diffTime;
+  var firstTimeConverted;
+  var tRemainder;
+  var tMinutesTillTrain;
+  var nextTrain;
 // Database listens for a change
    database.ref().on("child_added", function (snapshot){   
    var tableBody = $("#trainTable");
    var snapshot = snapshot.val();
    var row = $("<tr>");
-   var columns = $('<td>' + snapshot.name + '</td><td>' + snapshot.location + '</td><td>' + snapshot.time + '</td><td>' + snapshot.speed + '</td>')
+   var columns = $('<td>' + snapshot.name + '</td><td>' + snapshot.location + '</td><td>' + snapshot.speed + '</td><td>' + nextTrain + '</td><td>' + tMinutesTillTrain + '</td>')
    $(row).append(columns);
    $(tableBody).append(row);
     trainName= snapshot.val().name;
@@ -54,13 +61,27 @@ $("#addtrain").on("click", function (event){
   destination=$("#destination").val()
   trainTime=$("#trainTime").val();
   frequency=$("#frequency").val();
+  var firstTimeConverted = moment(trainTime, "hh:mm").subtract(1, "years")
+  var diffTime= moment().diff(moment(firstTimeConverted), "minutes");
+  var tRemainder = diffTime % frequency;
+ var tMinutesTillTrain = frequency - tRemainder;
+  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+  
+
+  console.log("DIFFERENCE IN TIME: " + diffTime);
+  console.log(tRemainder);
+  console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+  
 
 // Pushes data from form to database
   database.ref().push({
     name: trainName,
     location: destination,
-    time: trainTime,
-    speed: frequency
+    originaltime: trainTime,
+    speed: frequency,
+    
+
+    
   });
 
  
