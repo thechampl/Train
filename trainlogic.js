@@ -14,20 +14,24 @@
   var database = firebase.database();
 
 
+  var now = moment();
+  var currentTime= now._d.toTimeString();
+  var firstTimeConverted = moment(trainTime, "hh:mm").subtract(1, "years")
+  var diffTime= moment().diff(moment(firstTimeConverted), "minutes");
+  var tRemainder = diffTime % frequency;
+ var tMinutesTillTrain = frequency - tRemainder;
+  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+  
+  
+
   // Global Variables
   var trainName;
   var destination;
   var trainTime;
   var frequency;
-  var nextTrain;
-  var now = moment();
-  var currentTime= now._d.toTimeString();
-  console.log(currentTime);
-  var diffTime;
-  var firstTimeConverted;
-  var tRemainder;
-  var tMinutesTillTrain;
-  var nextTrain;
+
+ 
+ 
 // Database listens for a change
    database.ref().on("child_added", function (snapshot){   
    var tableBody = $("#trainTable");
@@ -61,17 +65,10 @@ $("#addtrain").on("click", function (event){
   destination=$("#destination").val()
   trainTime=$("#trainTime").val();
   frequency=$("#frequency").val();
-  var firstTimeConverted = moment(trainTime, "hh:mm").subtract(1, "years")
-  var diffTime= moment().diff(moment(firstTimeConverted), "minutes");
-  var tRemainder = diffTime % frequency;
- var tMinutesTillTrain = frequency - tRemainder;
-  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-  
-
+ 
+  console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
   console.log("DIFFERENCE IN TIME: " + diffTime);
-  console.log(tRemainder);
   console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
-  
 
 // Pushes data from form to database
   database.ref().push({
