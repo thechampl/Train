@@ -30,15 +30,21 @@ var tMinutesTillTrain;
 
 
 
-
+function autoRefresh_div()
+ {
+      $("#trainTable").load("index.html");
+  }
+ 
+  setInterval('autoRefresh_div()', 1000); 
 
 
 
 
 // Database listens for a change
 database.ref().on("child_added", function (snapshot) {
-  
+ 
   var tableBody = $("#trainTable");
+  
   // calculate the difference in time using moment
   now = moment();
   currentTime = now._d.toTimeString();
