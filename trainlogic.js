@@ -77,6 +77,12 @@ database.ref().on("child_added", function (snapshot) {
   console.log("The read failed: " + errorObject.code);
 });
 
+$("#clear").on("click", function (event){
+  firebase.database().ref().remove();
+});
+
+
+
 
 
 // On button click
