@@ -29,13 +29,13 @@ var tMinutesTillTrain;
 
 
 
-
-function autoRefresh_div()
- {
-      $("#trainTable").load("index.html");
-  }
  
-  setInterval('autoRefresh_div()', 1000); 
+  
+
+ 
+
+
+
 
 
 
@@ -43,7 +43,10 @@ function autoRefresh_div()
 // Database listens for a change
 database.ref().on("child_added", function (snapshot) {
  
+
   var tableBody = $("#trainTable");
+
+ 
   
   // calculate the difference in time using moment
   now = moment();
@@ -68,15 +71,6 @@ database.ref().on("child_added", function (snapshot) {
   
 
 
- 
-  
-
-
-
-
-
-
-
 
   // Error function
 }, function (errorObject) {
@@ -85,6 +79,7 @@ database.ref().on("child_added", function (snapshot) {
 
 $("#clear").on("click", function (event){
   firebase.database().ref().remove();
+  $("#trainTable").empty();
 });
 
 
